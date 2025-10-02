@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity() {
         val btnDelete = findViewById<Button>(R.id.btnDel)
 
         // Nastavení obsluhy pro tlačítko odeslat
-
         btnSend.setOnClickListener {
             val name = etName.text.toString()
             val surname = etSurname.text.toString()
@@ -40,6 +39,7 @@ class MainActivity : AppCompatActivity() {
             tvInformation.text = formatedText
         }
 
+        // Nastaveni obsluhy pro tlacitko smazat
         btnDelete.setOnClickListener {
             etName.text.clear()
             etSurname.text.clear()
