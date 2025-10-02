@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         val etAge = findViewById<EditText>(R.id.etAge)
         val tvInformation = findViewById<TextView>(R.id.tvInformation)
         val btnSend = findViewById<Button>(R.id.btnSend)
-        val btnDel = findViewById<Button>(R.id.btnDel)
+        val btnDelete = findViewById<Button>(R.id.btnDel)
 
         // Nastavení obsluhy pro tlačítko odeslat
 
@@ -38,6 +38,15 @@ class MainActivity : AppCompatActivity() {
             //Zobrazení
             val formatedText = "Jmenuji se $name $surname. Je mi $age let a moje bydliste je $place."
             tvInformation.text = formatedText
+        }
+
+        btnDelete.setOnClickListener {
+            etName.text.clear()
+            etSurname.text.clear()
+            etPlace.text.clear()
+            etAge.text.clear()
+
+            tvInformation.text = ""
         }
     }
 }
