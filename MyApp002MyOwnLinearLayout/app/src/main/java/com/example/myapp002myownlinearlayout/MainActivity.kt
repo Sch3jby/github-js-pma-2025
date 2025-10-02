@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
             val place = etPlace.text.toString()
             val age = etAge.text.toString()
 
-            //Zobrazení
+            // Zobrazení
             val formatedText = "Jmenuji se $name $surname. Je mi $age let a moje bydliste je $place."
             tvInformation.text = formatedText
         }
