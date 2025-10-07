@@ -4,49 +4,45 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        /*ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }*/
-        val etName = findViewById<EditText>(R.id.etName)
-        val etSurname = findViewById<EditText>(R.id.etSurname)
-        val etPlace = findViewById<EditText>(R.id.etPlace)
-        val etAge = findViewById<EditText>(R.id.etAge)
-        val tvInformation = findViewById<TextView>(R.id.tvInformation)
-        val btnSend = findViewById<Button>(R.id.btnSend)
-        val btnDelete = findViewById<Button>(R.id.btnDel)
 
-        // Nastavení obsluhy pro tlačítko odeslat
-        btnSend.setOnClickListener {
-            val name = etName.text.toString()
-            val surname = etSurname.text.toString()
-            val place = etPlace.text.toString()
-            val age = etAge.text.toString()
+        // Najdeme všechny prvky
+        val etWeight = findViewById<EditText>(R.id.etWeight)
+        val etHeight = findViewById<EditText>(R.id.etHeight)
+        val btnCalculate = findViewById<Button>(R.id.btnCalculate)
+        val btnClear = findViewById<Button>(R.id.btnClear)
+        val tvResult = findViewById<TextView>(R.id.tvResult)
 
-            // Zobrazení
-            val formatedText = "Jmenuji se $name $surname. Je mi $age let a moje bydliste je $place."
-            tvInformation.text = formatedText
+        // Tlačítko VYPOČÍTAT
+        btnCalculate.setOnClickListener {
+            val weight = etWeight.text.toString()
+            val height = etHeight.text.toString()
+
+            if (weight.isNotEmpty() && height.isNotEmpty()) {
+                // Převedeme na čísla
+                val w = weight.toDouble()
+                val h = height.toDouble() / 100 // cm na metry
+
+                // Výpočet BMI = váha / (výška * výška)
+                val bmi = w / (h * h)
+
+                // Zobrazíme výsledek
+                tvResult.text = "Vaše BMI: %.1f".format(bmi)
+            } else {
+                tvResult.text = "Vyplňte všechna pole!"
+            }
         }
 
-        // Nastaveni obsluhy pro tlacitko smazat
-        btnDelete.setOnClickListener {
-            etName.text.clear()
-            etSurname.text.clear()
-            etPlace.text.clear()
-            etAge.text.clear()
-
-            tvInformation.text = ""
+        // Tlačítko VYMAZAT
+        btnClear.setOnClickListener {
+            etWeight.text.clear()
+            etHeight.text.clear()
+            tvResult.text = "Zde se zobrazí výsledek"
         }
     }
 }
