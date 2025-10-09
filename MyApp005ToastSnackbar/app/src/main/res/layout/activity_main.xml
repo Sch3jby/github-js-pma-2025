@@ -5,15 +5,103 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Toast &amp; Snackbar Demo"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Toast sekce -->
+    <TextView
+        android:id="@+id/tvToastSection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Toast Notifikace"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+    <Button
+        android:id="@+id/btnSimpleToast"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Jednoduchý Toast"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvToastSection" />
+
+    <Button
+        android:id="@+id/btnCustomToast"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Toast s ikonkou"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnSimpleToast" />
+
+    <Button
+        android:id="@+id/btnLongToast"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Dlouhý Toast"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnCustomToast" />
+
+    <!-- Snackbar sekce -->
+    <TextView
+        android:id="@+id/tvSnackbarSection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Snackbar Notifikace"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnLongToast" />
+
+    <Button
+        android:id="@+id/btnSimpleSnackbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Jednoduchý Snackbar"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSnackbarSection" />
+
+    <Button
+        android:id="@+id/btnActionSnackbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Snackbar s akcí"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnSimpleSnackbar" />
+
+    <Button
+        android:id="@+id/btnLongSnackbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Dlouhý Snackbar"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnActionSnackbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
