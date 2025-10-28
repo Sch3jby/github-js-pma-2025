@@ -1,24 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="20sp">
+    android:layout_height="match_parent">
 
-    <!-- FrameLayout pro zobrazení seznamu (ListFragment) -->
+    <!-- FrameLayout pro zobrazení mřížky fotografií (ListFragment) -->
     <FrameLayout
         android:id="@+id/fragment_container_list"
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="#F5F5F5"/>
+
+    <!-- Vertikální dělítko -->
+    <View
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:background="#E0E0E0"/>
 
     <!-- FrameLayout pro zobrazení detailů (DetailFragment) -->
     <FrameLayout
         android:id="@+id/fragment_container_detail"
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"/>
 
 </LinearLayout>

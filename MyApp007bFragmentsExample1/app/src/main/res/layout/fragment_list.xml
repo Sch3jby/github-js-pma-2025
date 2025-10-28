@@ -4,10 +4,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20sp">
+    android:padding="16dp"
+    android:background="#F5F5F5">
 
-    <ListView
-        android:id="@+id/listViewBooks"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:text="📸 Photo Gallery"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#333"
+        android:paddingBottom="16dp"/>
+
+    <GridView
+        android:id="@+id/gridViewPhotos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="2"
+        android:horizontalSpacing="8dp"
+        android:verticalSpacing="8dp"
+        android:stretchMode="columnWidth"/>
 </LinearLayout>

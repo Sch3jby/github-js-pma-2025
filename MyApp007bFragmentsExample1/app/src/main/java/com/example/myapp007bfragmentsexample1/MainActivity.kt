@@ -1,10 +1,7 @@
 package com.example.myapp007bfragmentsexample1
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,18 +18,22 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // Voláno při výběru knihy
-    fun onBookSelected(title: String, author: String) {
+    // Voláno při výběru fotografie
+    fun onPhotoSelected(photo: Photo) {
         // Vytvoření nového DetailFragment a nastavení argumentů
         val detailFragment = DetailFragment()
 
         val bundle = Bundle().apply {
-            putString("title", title)
-            putString("author", author)
+            putString("title", photo.title)
+            putString("author", photo.author)
+            putString("description", photo.description)
+            putString("location", photo.location)
+            putInt("imageResource", photo.imageResource)
+            putInt("likes", photo.likes)
         }
         detailFragment.arguments = bundle
 
-        // Nahradíme starý fragment novým a commitneme transakci
+        // Nahradíme starý fragment novým
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container_detail, detailFragment)
             .commit()
