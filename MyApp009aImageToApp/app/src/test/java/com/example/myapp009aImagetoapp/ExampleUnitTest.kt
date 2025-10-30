@@ -1,4 +1,4 @@
-package com.example.myapp009aimagetoapp
+package com.example.myapp009aImagetoapp
 
 import org.junit.Test
 

@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.myapp009aimagetoapp"
+    namespace = "com.example.myapp009aImagetoapp"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.myapp009aimagetoapp"
+        applicationId = "com.example.myapp009aImagetoapp"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
