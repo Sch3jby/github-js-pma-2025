@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1A1A2E">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Nadpis -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🎲 Kostky Deluxe"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:layout_gravity="center"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Výběr typu kostky -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Typ kostky:"
+            android:textSize="18sp"
+            android:textColor="#CCCCCC"
+            android:layout_marginBottom="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="16dp">
+
+            <Button
+                android:id="@+id/btnD6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="D6"
+                android:layout_margin="4dp"
+                android:backgroundTint="#4CAF50" />
+
+            <Button
+                android:id="@+id/btnD20"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="D20"
+                android:layout_margin="4dp"
+                android:backgroundTint="#2196F3" />
+
+            <Button
+                android:id="@+id/btnD100"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="D100"
+                android:layout_margin="4dp"
+                android:backgroundTint="#9C27B0" />
+        </LinearLayout>
+
+        <!-- Počet kostek -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Počet kostek:"
+            android:textSize="18sp"
+            android:textColor="#CCCCCC"
+            android:layout_marginBottom="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="24dp">
+
+            <Button
+                android:id="@+id/btnMinus"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:text="-"
+                android:textSize="24sp"
+                android:backgroundTint="#FF5252" />
+
+            <TextView
+                android:id="@+id/tvDiceCount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="1"
+                android:textSize="48sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:gravity="center" />
+
+            <Button
+                android:id="@+id/btnPlus"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:text="+"
+                android:textSize="24sp"
+                android:backgroundTint="#4CAF50" />
+        </LinearLayout>
+
+        <!-- Výsledek -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#16213E"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Výsledek:"
+                android:textSize="18sp"
+                android:textColor="#CCCCCC"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/tvResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="---"
+                android:textSize="36sp"
+                android:textStyle="bold"
+                android:textColor="#FFD700"
+                android:gravity="center"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/tvDiceValues"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="16sp"
+                android:textColor="#AAAAAA"
+                android:gravity="center" />
+        </LinearLayout>
+
+        <!-- Tlačítko hodit -->
+        <Button
+            android:id="@+id/btnRoll"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:text="🎲 HODIT KOSTKAMI"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:backgroundTint="#FF6B35"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Statistiky -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#16213E"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📊 Statistiky:"
+                android:textSize="18sp"
+                android:textColor="#CCCCCC"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/tvStats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Počet hodů: 0\nPrůměr: ---\nNejvyšší: ---\nNejnižší: ---"
+                android:textSize="14sp"
+                android:textColor="#FFFFFF"
+                android:lineSpacingExtra="4dp" />
+        </LinearLayout>
+
+        <!-- Historie -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#16213E"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📜 Historie (posledních 5):"
+                android:textSize="18sp"
+                android:textColor="#CCCCCC"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/tvHistory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Zatím žádné hody..."
+                android:textSize="14sp"
+                android:textColor="#AAAAAA"
+                android:lineSpacingExtra="4dp" />
+        </LinearLayout>
+
+        <!-- Reset -->
+        <Button
+            android:id="@+id/btnReset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Resetovat statistiky"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="#546E7A" />
+
+    </LinearLayout>
+</ScrollView>
