@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/countdownFragment">
+
+    <fragment
+        android:id="@+id/countdownFragment"
+        android:name="com.example.christmascountdown.ui.CountdownFragment"
+        android:label="Christmas Countdown" />
+
+    <fragment
+        android:id="@+id/wishlistFragment"
+        android:name="com.example.christmascountdown.ui.WishlistFragment"
+        android:label="My Wishlist" />
+
+    <fragment
+        android:id="@+id/giftsFragment"
+        android:name="com.example.christmascountdown.ui.GiftsFragment"
+        android:label="Gift Tracker" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.christmascountdown.ui.SettingsFragment"
+        android:label="Settings" />
+
+</navigation>
