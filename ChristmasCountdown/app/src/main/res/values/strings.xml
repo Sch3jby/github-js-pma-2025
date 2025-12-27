@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Christmas Countdown</string>
+
+    <string-array name="wishlist_categories">
+        <item>Toys</item>
+        <item>Books</item>
+        <item>Electronics</item>
+        <item>Clothes</item>
+        <item>Games</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="gift_status">
+        <item>Not purchased</item>
+        <item>Purchased</item>
+        <item>Wrapped</item>
+    </string-array>
+</resources>
