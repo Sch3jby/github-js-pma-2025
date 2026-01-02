@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "667600405990",
+    "project_id": "sportovni-denik",
+    "storage_bucket": "sportovni-denik.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:667600405990:android:e7b318fa85779d76b04227",
+        "android_client_info": {
+          "package_name": "com.example.semestralproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPfbCgKbCknW3zqdsZAmMaUsQWkxqc7NA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

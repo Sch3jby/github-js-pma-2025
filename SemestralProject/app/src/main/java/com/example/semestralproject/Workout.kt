@@ -1,6 +1,5 @@
 package com.example.semestralproject
 
-import android.net.Uri
 import java.io.Serializable
 
 data class Workout(
@@ -11,5 +10,6 @@ data class Workout(
     var duration: Int,
     var date: String,
     var isCompleted: Boolean = false,
-    var imageUri: String? = null
+    var imageUri: String? = null,
+    var firebaseKey: String = "" // Klíč z Firebase pro identifikaci
 ) : Serializable

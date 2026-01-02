@@ -6,14 +6,17 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.semestralproject.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val workoutList = mutableListOf<Workout>()
     private lateinit var adapter: WorkoutAdapter
+    private lateinit var firebaseRepository: FirebaseRepository
     private var lastDeletedWorkout: Workout? = null
     private var lastDeletedPosition: Int = -1
 
@@ -25,10 +28,11 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.title = "Moje tréninky"
 
-        loadWorkoutsFromPreferences()
+        firebaseRepository = FirebaseRepository()
+
         setupAdapter()
         setupListeners()
-        updateEmptyState()
+        observeWorkouts()
     }
 
     private fun setupAdapter() {
@@ -44,8 +48,7 @@ class MainActivity : AppCompatActivity() {
             },
             onCheckboxChange = { workout, isChecked ->
                 workout.isCompleted = isChecked
-                saveWorkoutsToPreferences()
-                Toast.makeText(this, "Trénink ${if (isChecked) "dokončen" else "nedokončen"}", Toast.LENGTH_SHORT).show()
+                updateWorkoutCompletion(workout)
             }
         )
         binding.listViewWorkouts.adapter = adapter
@@ -58,25 +61,66 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun observeWorkouts() {
+        lifecycleScope.launch {
+            firebaseRepository.getWorkoutsFlow().collect { workouts ->
+                workoutList.clear()
+                workoutList.addAll(workouts)
+                adapter.notifyDataSetChanged()
+                updateEmptyState()
+            }
+        }
+    }
+
+    private fun updateWorkoutCompletion(workout: Workout) {
+        lifecycleScope.launch {
+            if (workout.firebaseKey.isNotEmpty()) {
+                firebaseRepository.updateWorkoutCompletion(workout.firebaseKey, workout.isCompleted)
+                    .onSuccess {
+                        Toast.makeText(
+                            this@MainActivity,
+                            "Trénink ${if (workout.isCompleted) "dokončen" else "nedokončen"}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    .onFailure { e ->
+                        Toast.makeText(
+                            this@MainActivity,
+                            "Chyba při aktualizaci: ${e.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+            }
+        }
+    }
+
     private fun deleteWorkout(workout: Workout, position: Int) {
         lastDeletedWorkout = workout
         lastDeletedPosition = position
 
-        workoutList.removeAt(position)
-        adapter.notifyDataSetChanged()
-        saveWorkoutsToPreferences()
-        updateEmptyState()
-
-        Snackbar.make(binding.root, "Trénink smazán", Snackbar.LENGTH_LONG)
-            .setAction("Vrátit") {
-                lastDeletedWorkout?.let {
-                    workoutList.add(lastDeletedPosition, it)
-                    adapter.notifyDataSetChanged()
-                    saveWorkoutsToPreferences()
-                    updateEmptyState()
-                }
+        lifecycleScope.launch {
+            if (workout.firebaseKey.isNotEmpty()) {
+                firebaseRepository.deleteWorkout(workout.firebaseKey)
+                    .onSuccess {
+                        Snackbar.make(binding.root, "Trénink smazán", Snackbar.LENGTH_LONG)
+                            .setAction("Vrátit") {
+                                lastDeletedWorkout?.let {
+                                    lifecycleScope.launch {
+                                        firebaseRepository.addWorkout(it)
+                                    }
+                                }
+                            }
+                            .show()
+                    }
+                    .onFailure { e ->
+                        Toast.makeText(
+                            this@MainActivity,
+                            "Chyba při mazání: ${e.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
             }
-            .show()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -86,27 +130,41 @@ class MainActivity : AppCompatActivity() {
             when (requestCode) {
                 REQUEST_CODE_ADD -> {
                     data?.getSerializableExtra("NEW_WORKOUT")?.let { workout ->
-                        workoutList.add(workout as Workout)
-                        adapter.notifyDataSetChanged()
-                        saveWorkoutsToPreferences()
-                        updateEmptyState()
-
-                        val customToast = layoutInflater.inflate(R.layout.custom_toast, null)
-                        Toast(this).apply {
-                            duration = Toast.LENGTH_SHORT
-                            view = customToast
-                            show()
+                        val newWorkout = workout as Workout
+                        lifecycleScope.launch {
+                            firebaseRepository.addWorkout(newWorkout)
+                                .onSuccess {
+                                    val customToast = layoutInflater.inflate(R.layout.custom_toast, null)
+                                    Toast(this@MainActivity).apply {
+                                        duration = Toast.LENGTH_SHORT
+                                        view = customToast
+                                        show()
+                                    }
+                                }
+                                .onFailure { e ->
+                                    Toast.makeText(
+                                        this@MainActivity,
+                                        "Chyba při přidávání: ${e.message}",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
                         }
                     }
                 }
                 REQUEST_CODE_DETAIL -> {
                     data?.getSerializableExtra("UPDATED_WORKOUT")?.let { updated ->
                         val updatedWorkout = updated as Workout
-                        val index = workoutList.indexOfFirst { it.id == updatedWorkout.id }
-                        if (index != -1) {
-                            workoutList[index] = updatedWorkout
-                            adapter.notifyDataSetChanged()
-                            saveWorkoutsToPreferences()
+                        if (updatedWorkout.firebaseKey.isNotEmpty()) {
+                            lifecycleScope.launch {
+                                firebaseRepository.updateWorkout(updatedWorkout.firebaseKey, updatedWorkout)
+                                    .onFailure { e ->
+                                        Toast.makeText(
+                                            this@MainActivity,
+                                            "Chyba při aktualizaci: ${e.message}",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                            }
                         }
                     }
                 }
@@ -140,43 +198,6 @@ class MainActivity : AppCompatActivity() {
         } else {
             binding.tvEmptyState.visibility = android.view.View.GONE
             binding.listViewWorkouts.visibility = android.view.View.VISIBLE
-        }
-    }
-
-    private fun saveWorkoutsToPreferences() {
-        val prefs = getSharedPreferences("workouts_prefs", MODE_PRIVATE)
-        val editor = prefs.edit()
-
-        val workoutStrings = workoutList.map { workout ->
-            "${workout.id}|${workout.name}|${workout.description}|${workout.intensity}|${workout.duration}|${workout.date}|${workout.isCompleted}|${workout.imageUri ?: ""}"
-        }
-
-        editor.putString("workouts", workoutStrings.joinToString(";;;"))
-        editor.apply()
-    }
-
-    private fun loadWorkoutsFromPreferences() {
-        val prefs = getSharedPreferences("workouts_prefs", MODE_PRIVATE)
-        val workoutsString = prefs.getString("workouts", "") ?: ""
-
-        if (workoutsString.isNotEmpty()) {
-            workoutList.clear()
-            workoutsString.split(";;;").forEach { workoutString ->
-                val parts = workoutString.split("|")
-                if (parts.size >= 7) {
-                    val workout = Workout(
-                        id = parts[0].toInt(),
-                        name = parts[1],
-                        description = parts[2],
-                        intensity = parts[3],
-                        duration = parts[4].toInt(),
-                        date = parts[5],
-                        isCompleted = parts[6].toBoolean(),
-                        imageUri = parts.getOrNull(7)?.takeIf { it.isNotEmpty() }
-                    )
-                    workoutList.add(workout)
-                }
-            }
         }
     }
 
