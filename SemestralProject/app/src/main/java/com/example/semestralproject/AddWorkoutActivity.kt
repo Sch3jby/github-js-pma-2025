@@ -4,6 +4,9 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +19,7 @@ class AddWorkoutActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddWorkoutBinding
     private var selectedImageUri: Uri? = null
     private var selectedDate: String = ""
+    private var selectedWorkoutType: WorkoutType = WorkoutType.OTHER
 
     private val imagePickerLauncher = registerForActivityResult(
         ActivityResultContracts.GetContent()
@@ -23,7 +27,7 @@ class AddWorkoutActivity : AppCompatActivity() {
         uri?.let {
             selectedImageUri = it
             binding.ivWorkoutImage.setImageURI(it)
-            binding.ivWorkoutImage.visibility = android.view.View.VISIBLE
+            binding.ivWorkoutImage.visibility = View.VISIBLE
         }
     }
 
@@ -36,8 +40,39 @@ class AddWorkoutActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "Nový trénink"
 
+        setupWorkoutTypeSpinner()
         setupDatePicker()
         setupListeners()
+    }
+
+    private fun setupWorkoutTypeSpinner() {
+        val workoutTypes = WorkoutType.values().map { it.displayName }
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, workoutTypes)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinnerWorkoutType.adapter = adapter
+
+        binding.spinnerWorkoutType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                selectedWorkoutType = WorkoutType.values()[position]
+                updateFieldsVisibility()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                selectedWorkoutType = WorkoutType.OTHER
+            }
+        }
+    }
+
+    private fun updateFieldsVisibility() {
+        val fields = selectedWorkoutType.fields
+
+        // Vzdálenost zobrazit jen pokud je v seznamu polí
+        if (fields.contains(WorkoutField.DISTANCE)) {
+            binding.layoutDistance.visibility = View.VISIBLE
+        } else {
+            binding.layoutDistance.visibility = View.GONE
+            binding.etDistance.setText("")
+        }
     }
 
     private fun setupDatePicker() {
@@ -75,6 +110,7 @@ class AddWorkoutActivity : AppCompatActivity() {
         val name = binding.etWorkoutName.text.toString().trim()
         val description = binding.etWorkoutDescription.text.toString().trim()
         val durationStr = binding.etDuration.text.toString().trim()
+        val distanceStr = binding.etDistance.text.toString().trim()
 
         if (name.isEmpty()) {
             Toast.makeText(this, "Zadejte název tréninku", Toast.LENGTH_SHORT).show()
@@ -92,6 +128,16 @@ class AddWorkoutActivity : AppCompatActivity() {
             return
         }
 
+        // Kontrola vzdálenosti, pokud je pole viditelné
+        var distance: Float? = null
+        if (binding.layoutDistance.visibility == View.VISIBLE && distanceStr.isNotEmpty()) {
+            distance = distanceStr.toFloatOrNull()
+            if (distance == null || distance <= 0) {
+                Toast.makeText(this, "Zadejte platnou vzdálenost", Toast.LENGTH_SHORT).show()
+                return
+            }
+        }
+
         val intensity = when (binding.radioGroupIntensity.checkedRadioButtonId) {
             R.id.radioLow -> "Nízká"
             R.id.radioMedium -> "Střední"
@@ -103,8 +149,10 @@ class AddWorkoutActivity : AppCompatActivity() {
             id = System.currentTimeMillis().toInt(),
             name = name,
             description = description,
+            workoutType = selectedWorkoutType,
             intensity = intensity,
             duration = duration,
+            distance = distance,
             date = selectedDate,
             isCompleted = false,
             imageUri = selectedImageUri?.toString()

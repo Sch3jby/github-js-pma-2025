@@ -86,8 +86,10 @@ data class WorkoutFirebase(
     var id: Int = 0,
     var name: String = "",
     var description: String = "",
+    var workoutType: String = "OTHER",  // Uložíme jako string
     var intensity: String = "",
     var duration: Int = 0,
+    var distance: Float = 0f,  // Vzdálenost (0 = není zadáno)
     var date: String = "",
     var completed: Boolean = false,
     var imageUri: String = ""
@@ -97,8 +99,10 @@ data class WorkoutFirebase(
             id = id,
             name = name,
             description = description,
+            workoutType = WorkoutType.fromString(workoutType),
             intensity = intensity,
             duration = duration,
+            distance = if (distance > 0) distance else null,
             date = date,
             isCompleted = completed,
             imageUri = imageUri.takeIf { it.isNotEmpty() },
@@ -112,8 +116,10 @@ data class WorkoutFirebase(
                 id = workout.id,
                 name = workout.name,
                 description = workout.description,
+                workoutType = workout.workoutType.name,
                 intensity = workout.intensity,
                 duration = workout.duration,
+                distance = workout.distance ?: 0f,
                 date = workout.date,
                 completed = workout.isCompleted,
                 imageUri = workout.imageUri ?: ""

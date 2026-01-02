@@ -34,9 +34,9 @@ class WorkoutAdapter(
         val ivImage = view.findViewById<ImageView>(R.id.ivWorkoutThumb)
         val btnDelete = view.findViewById<Button>(R.id.btnDeleteWorkout)
 
-        tvName.text = workout.name
+        tvName.text = "${workout.workoutType.displayName}: ${workout.name}"
         tvDate.text = workout.date
-        tvDuration.text = "${workout.duration} min"
+        tvDuration.text = workout.getAdditionalInfo()
         tvIntensity.text = workout.intensity
 
         when (workout.intensity) {
