@@ -1,10 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Base colors -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Primary colors - Sports theme (Energy Blue) -->
+    <color name="md_theme_light_primary">#0061A4</color>
+    <color name="md_theme_light_onPrimary">#FFFFFF</color>
+    <color name="md_theme_light_primaryContainer">#D1E4FF</color>
+    <color name="md_theme_light_onPrimaryContainer">#001D36</color>
+
+    <!-- Secondary colors - Accent (Vibrant Orange) -->
+    <color name="md_theme_light_secondary">#F57C00</color>
+    <color name="md_theme_light_onSecondary">#FFFFFF</color>
+    <color name="md_theme_light_secondaryContainer">#FFE0B2</color>
+    <color name="md_theme_light_onSecondaryContainer">#3E2723</color>
+
+    <!-- Tertiary colors - Success Green -->
+    <color name="md_theme_light_tertiary">#00C853</color>
+    <color name="md_theme_light_onTertiary">#FFFFFF</color>
+    <color name="md_theme_light_tertiaryContainer">#C8E6C9</color>
+    <color name="md_theme_light_onTertiaryContainer">#1B5E20</color>
+
+    <!-- Error colors -->
+    <color name="md_theme_light_error">#D32F2F</color>
+    <color name="md_theme_light_onError">#FFFFFF</color>
+    <color name="md_theme_light_errorContainer">#FFEBEE</color>
+    <color name="md_theme_light_onErrorContainer">#B71C1C</color>
+
+    <!-- Background colors -->
+    <color name="md_theme_light_background">#F5F7FA</color>
+    <color name="md_theme_light_onBackground">#1A1C1E</color>
+    <color name="md_theme_light_surface">#FFFFFF</color>
+    <color name="md_theme_light_onSurface">#1A1C1E</color>
+    <color name="md_theme_light_surfaceVariant">#E1E2EC</color>
+    <color name="md_theme_light_onSurfaceVariant">#44474F</color>
+
+    <!-- Outline -->
+    <color name="md_theme_light_outline">#74777F</color>
+    <color name="md_theme_light_outlineVariant">#C4C6D0</color>
+
+    <!-- Intensity colors - redesigned -->
     <color name="intensity_low">#4CAF50</color>
     <color name="intensity_medium">#FF9800</color>
     <color name="intensity_high">#F44336</color>
+
+    <!-- Functional colors -->
     <color name="red_delete">#D32F2F</color>
     <color name="toast_bg">#424242</color>
+
+    <!-- Card and elevation -->
+    <color name="card_background">#FFFFFF</color>
+    <color name="card_stroke">#E0E0E0</color>
+
+    <!-- Status colors -->
+    <color name="status_completed">#4CAF50</color>
+    <color name="status_pending">#FF9800</color>
+
+    <!-- Chart colors -->
+    <color name="chart_primary">#0061A4</color>
+    <color name="chart_secondary">#F57C00</color>
+    <color name="chart_grid">#E0E0E0</color>
+    <color name="chart_background">#F5F7FA</color>
+
+    <!-- Inverse colors -->
+    <color name="md_theme_light_inverseSurface">#2F3033</color>
+    <color name="md_theme_light_inverseOnSurface">#F1F0F4</color>
 </resources>

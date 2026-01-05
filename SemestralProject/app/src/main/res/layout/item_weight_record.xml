@@ -1,54 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="12dp">
+    android:layout_marginStart="0dp"
+    android:layout_marginEnd="0dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="1dp"
+    app:strokeWidth="0dp"
+    app:cardBackgroundColor="@color/md_theme_light_surface">
 
-    <LinearLayout
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp">
 
-        <TextView
-            android:id="@+id/tvWeightValue"
+        <!-- Weight Icon -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardWeightIcon"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            app:cardCornerRadius="22dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@color/md_theme_light_primaryContainer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="⚖️"
+                android:textSize="22sp" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Content Container -->
+        <LinearLayout
+            android:id="@+id/layoutContent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toEndOf="@id/cardWeightIcon"
+            app:layout_constraintEnd_toStartOf="@id/cardWeightChange"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <!-- Weight Value -->
+            <TextView
+                android:id="@+id/tvWeightValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="75.5 kg"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="@color/md_theme_light_onSurface"
+                android:fontFamily="sans-serif-medium"
+                android:maxLines="1"
+                android:ellipsize="none"
+                android:singleLine="true" />
+
+            <!-- Weight Date -->
+            <TextView
+                android:id="@+id/tvWeightDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="01.01.2025 10:30"
+                android:textSize="12sp"
+                android:textColor="@color/md_theme_light_onSurfaceVariant"
+                android:layout_marginTop="2dp"
+                android:maxLines="1"
+                android:ellipsize="end" />
+        </LinearLayout>
+
+        <!-- Change Badge -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardWeightChange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="75.5 kg"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/black" />
+            android:layout_marginEnd="6dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@color/md_theme_light_tertiaryContainer"
+            app:layout_constraintEnd_toStartOf="@id/btnDeleteWeight"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-        <TextView
-            android:id="@+id/tvWeightDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="01.01.2025 10:30"
-            android:textSize="14sp"
-            android:textColor="@android:color/darker_gray"
-            android:layout_marginTop="4dp" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tvWeightChange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+0.5 kg"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/md_theme_light_tertiary"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:minWidth="55dp"
+                android:gravity="center" />
+        </com.google.android.material.card.MaterialCardView>
 
-    <TextView
-        android:id="@+id/tvWeightChange"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="+0.5 kg"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_gravity="center_vertical"
-        android:padding="8dp" />
+        <!-- Delete Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDeleteWeight"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:insetLeft="0dp"
+            android:insetRight="0dp"
+            android:padding="0dp"
+            app:icon="@android:drawable/ic_menu_delete"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconSize="16dp"
+            app:iconTint="@color/md_theme_light_error"
+            app:cornerRadius="18dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/md_theme_light_error"
+            app:backgroundTint="@color/md_theme_light_errorContainer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            style="@style/Widget.Material3.Button.OutlinedButton" />
 
-    <Button
-        android:id="@+id/btnDeleteWeight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:backgroundTint="@color/red_delete"
-        android:minWidth="0dp"
-        android:minHeight="0dp"
-        android:padding="8dp"
-        android:text="X"
-        android:textSize="12sp" />
-</LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

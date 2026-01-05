@@ -43,7 +43,10 @@ android {
 dependencies {
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
+
+    // Material Design 3
     implementation("com.google.android.material:material:1.11.0")
+
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.fragment:fragment-ktx:1.6.2")
     implementation("androidx.activity:activity-ktx:1.8.2")
@@ -59,4 +62,7 @@ dependencies {
 
     // Gson for JSON serialization
     implementation("com.google.code.gson:gson:2.10.1")
+
+    // CardView
+    implementation("androidx.cardview:cardview:1.0.0")
 }

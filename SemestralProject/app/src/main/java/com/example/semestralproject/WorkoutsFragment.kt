@@ -33,12 +33,11 @@ class WorkoutsFragment : Fragment() {
                 lifecycleScope.launch {
                     firebaseRepository.addWorkout(newWorkout)
                         .onSuccess {
-                            val customToast = layoutInflater.inflate(R.layout.custom_toast, null)
-                            Toast(requireContext()).apply {
-                                duration = Toast.LENGTH_SHORT
-                                view = customToast
-                                show()
-                            }
+                            Toast.makeText(
+                                requireContext(),
+                                "✅ Trénink přidán!",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                         .onFailure { e ->
                             Toast.makeText(
@@ -135,11 +134,8 @@ class WorkoutsFragment : Fragment() {
             if (workout.firebaseKey.isNotEmpty()) {
                 firebaseRepository.updateWorkoutCompletion(workout.firebaseKey, workout.isCompleted)
                     .onSuccess {
-                        Toast.makeText(
-                            requireContext(),
-                            "Trénink ${if (workout.isCompleted) "dokončen" else "nedokončen"}",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        val message = if (workout.isCompleted) "✅ Dokončeno!" else "⏳ Nedokončeno"
+                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
                     }
                     .onFailure { e ->
                         Toast.makeText(
@@ -160,7 +156,7 @@ class WorkoutsFragment : Fragment() {
             if (workout.firebaseKey.isNotEmpty()) {
                 firebaseRepository.deleteWorkout(workout.firebaseKey)
                     .onSuccess {
-                        Snackbar.make(binding.root, "Trénink smazán", Snackbar.LENGTH_LONG)
+                        Snackbar.make(binding.root, "🗑️ Trénink smazán", Snackbar.LENGTH_LONG)
                             .setAction("Vrátit") {
                                 lastDeletedWorkout?.let {
                                     lifecycleScope.launch {
@@ -183,10 +179,10 @@ class WorkoutsFragment : Fragment() {
 
     private fun updateEmptyState() {
         if (workoutList.isEmpty()) {
-            binding.tvEmptyState.visibility = View.VISIBLE
+            binding.layoutEmptyState.visibility = View.VISIBLE
             binding.listViewWorkouts.visibility = View.GONE
         } else {
-            binding.tvEmptyState.visibility = View.GONE
+            binding.layoutEmptyState.visibility = View.GONE
             binding.listViewWorkouts.visibility = View.VISIBLE
         }
     }

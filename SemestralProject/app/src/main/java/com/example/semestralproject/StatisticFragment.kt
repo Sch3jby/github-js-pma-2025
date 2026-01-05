@@ -44,12 +44,12 @@ class StatisticsFragment : Fragment() {
 
     private fun calculateStatistics(workouts: List<Workout>) {
         if (workouts.isEmpty()) {
-            binding.tvNoData.visibility = View.VISIBLE
+            binding.layoutEmptyState.visibility = View.VISIBLE
             binding.scrollView.visibility = View.GONE
             return
         }
 
-        binding.tvNoData.visibility = View.GONE
+        binding.layoutEmptyState.visibility = View.GONE
         binding.scrollView.visibility = View.VISIBLE
 
         // Celkové statistiky
@@ -58,9 +58,9 @@ class StatisticsFragment : Fragment() {
         val totalMinutes = workouts.sumOf { it.duration }
         val totalHours = totalMinutes / 60.0
 
-        binding.tvTotalWorkouts.text = "Celkem tréninků: $totalWorkouts"
-        binding.tvCompletedWorkouts.text = "Dokončeno: $completedWorkouts"
-        binding.tvTotalTime.text = String.format("Celkový čas: %.1f hodin", totalHours)
+        binding.tvTotalWorkouts.text = "$totalWorkouts"
+        binding.tvCompletedWorkouts.text = "$completedWorkouts"
+        binding.tvTotalTime.text = String.format("%.1f hodin", totalHours)
 
         // Statistiky podle typu aktivity
         val statisticsByType = StringBuilder()
@@ -78,10 +78,10 @@ class StatisticsFragment : Fragment() {
                 val avgTime = totalTime / count
                 val completed = workoutsOfType.count { it.isCompleted }
 
-                statisticsByType.append("Počet: $count\n")
-                statisticsByType.append("Celkový čas: $totalTime min\n")
-                statisticsByType.append("Průměrný čas: $avgTime min\n")
-                statisticsByType.append("Dokončeno: $completed\n")
+                statisticsByType.append("📊 Počet: $count\n")
+                statisticsByType.append("⏱️ Celkový čas: $totalTime min\n")
+                statisticsByType.append("📈 Průměrný čas: $avgTime min\n")
+                statisticsByType.append("✅ Dokončeno: $completed\n")
 
                 // Pokud má aktivita vzdálenost
                 if (type.fields.contains(WorkoutField.DISTANCE)) {
@@ -92,9 +92,9 @@ class StatisticsFragment : Fragment() {
                         val avgDistance = totalDistance / workoutsWithDistance.size
                         val avgSpeed = if (totalTime > 0) (totalDistance / totalTime) * 60 else 0.0
 
-                        statisticsByType.append(String.format("Celková vzdálenost: %.2f km\n", totalDistance))
-                        statisticsByType.append(String.format("Průměrná vzdálenost: %.2f km\n", avgDistance))
-                        statisticsByType.append(String.format("Průměrná rychlost: %.2f km/h\n", avgSpeed))
+                        statisticsByType.append(String.format("🏃 Celková vzdálenost: %.2f km\n", totalDistance))
+                        statisticsByType.append(String.format("📏 Průměrná vzdálenost: %.2f km\n", avgDistance))
+                        statisticsByType.append(String.format("⚡ Průměrná rychlost: %.2f km/h\n", avgSpeed))
                     }
                 }
 
@@ -110,10 +110,10 @@ class StatisticsFragment : Fragment() {
         val highIntensity = workouts.count { it.intensity == "Vysoká" }
 
         val intensityStats = StringBuilder()
-        intensityStats.append("Podle intenzity:\n\n")
-        intensityStats.append("Nízká: $lowIntensity (${(lowIntensity * 100.0 / totalWorkouts).roundToInt()}%)\n")
-        intensityStats.append("Střední: $mediumIntensity (${(mediumIntensity * 100.0 / totalWorkouts).roundToInt()}%)\n")
-        intensityStats.append("Vysoká: $highIntensity (${(highIntensity * 100.0 / totalWorkouts).roundToInt()}%)\n")
+        intensityStats.append("💪 Podle intenzity:\n\n")
+        intensityStats.append("🟢 Nízká: $lowIntensity (${(lowIntensity * 100.0 / totalWorkouts).roundToInt()}%)\n\n")
+        intensityStats.append("🟡 Střední: $mediumIntensity (${(mediumIntensity * 100.0 / totalWorkouts).roundToInt()}%)\n\n")
+        intensityStats.append("🔴 Vysoká: $highIntensity (${(highIntensity * 100.0 / totalWorkouts).roundToInt()}%)\n")
 
         binding.tvIntensityStats.text = intensityStats.toString()
     }

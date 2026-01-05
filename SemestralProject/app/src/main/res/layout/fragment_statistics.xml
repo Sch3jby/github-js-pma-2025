@@ -1,137 +1,335 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:background="@color/md_theme_light_background">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Statistiky"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="16dp" />
-
-    <TextView
-        android:id="@+id/tvNoData"
+    <!-- Header -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Zatím žádné tréninky pro statistiky"
-        android:textSize="16sp"
-        android:gravity="center"
-        android:layout_marginTop="100dp"
-        android:visibility="gone" />
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:background="@color/md_theme_light_primary">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="📊 Statistiky"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="@color/md_theme_light_onPrimary"
+            android:fontFamily="sans-serif-medium" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Přehled vašich tréninků"
+            android:textSize="14sp"
+            android:textColor="@color/md_theme_light_onPrimary"
+            android:alpha="0.8"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
+
+    <!-- Empty State -->
+    <LinearLayout
+        android:id="@+id/layoutEmptyState"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="32dp"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="📈"
+            android:textSize="72sp"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:id="@+id/tvNoData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Zatím žádné tréninky"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/md_theme_light_onBackground"
+            android:fontFamily="sans-serif-medium" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Přidejte tréninky pro zobrazení statistik"
+            android:textSize="15sp"
+            android:textColor="@color/md_theme_light_onSurfaceVariant"
+            android:layout_marginTop="8dp" />
+    </LinearLayout>
+
+    <!-- Statistics Content -->
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <!-- Celkové statistiky -->
-            <androidx.cardview.widget.CardView
+            <!-- Overall Statistics Card -->
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:elevation="4dp">
+                app:cardCornerRadius="20dp"
+                app:cardElevation="3dp"
+                app:cardBackgroundColor="@color/md_theme_light_surface">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Celkové statistiky"
-                        android:textSize="18sp"
+                        android:text="🎯 Celkové statistiky"
+                        android:textSize="20sp"
                         android:textStyle="bold"
-                        android:layout_marginBottom="8dp" />
+                        android:textColor="@color/md_theme_light_onSurface"
+                        android:fontFamily="sans-serif-medium"
+                        android:layout_marginBottom="16dp" />
 
-                    <TextView
-                        android:id="@+id/tvTotalWorkouts"
-                        android:layout_width="wrap_content"
+                    <!-- Stats Grid -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Celkem tréninků: 0"
-                        android:textSize="16sp"
-                        android:layout_marginTop="4dp" />
+                        android:orientation="horizontal"
+                        android:weightSum="2">
 
-                    <TextView
-                        android:id="@+id/tvCompletedWorkouts"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Dokončeno: 0"
-                        android:textSize="16sp"
-                        android:layout_marginTop="4dp" />
+                        <!-- Total Workouts -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="8dp"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="0dp"
+                            app:cardBackgroundColor="@color/md_theme_light_primaryContainer">
 
-                    <TextView
-                        android:id="@+id/tvTotalTime"
-                        android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="16dp"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="🏃"
+                                    android:textSize="32sp" />
+
+                                <TextView
+                                    android:id="@+id/tvTotalWorkouts"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0"
+                                    android:textSize="28sp"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/md_theme_light_onPrimaryContainer"
+                                    android:layout_marginTop="8dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Celkem"
+                                    android:textSize="13sp"
+                                    android:textColor="@color/md_theme_light_onPrimaryContainer"
+                                    android:alpha="0.8" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!-- Completed Workouts -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="8dp"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="0dp"
+                            app:cardBackgroundColor="@color/md_theme_light_tertiaryContainer">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="16dp"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="✅"
+                                    android:textSize="32sp" />
+
+                                <TextView
+                                    android:id="@+id/tvCompletedWorkouts"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0"
+                                    android:textSize="28sp"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/md_theme_light_onTertiaryContainer"
+                                    android:layout_marginTop="8dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Dokončeno"
+                                    android:textSize="13sp"
+                                    android:textColor="@color/md_theme_light_onTertiaryContainer"
+                                    android:alpha="0.8" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+                    </LinearLayout>
+
+                    <!-- Total Time -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Celkový čas: 0 hodin"
-                        android:textSize="16sp"
-                        android:layout_marginTop="4dp" />
+                        android:layout_marginTop="16dp"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="0dp"
+                        app:cardBackgroundColor="@color/md_theme_light_secondaryContainer">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="16dp"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="⏱️"
+                                android:textSize="32sp" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:layout_marginStart="16dp">
+
+                                <TextView
+                                    android:id="@+id/tvTotalTime"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0 hodin"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/md_theme_light_onSecondaryContainer" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Celkový čas tréninků"
+                                    android:textSize="13sp"
+                                    android:textColor="@color/md_theme_light_onSecondaryContainer"
+                                    android:alpha="0.8" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <!-- Statistiky podle intenzity -->
-            <androidx.cardview.widget.CardView
+            <!-- Intensity Statistics Card -->
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:elevation="4dp">
+                app:cardCornerRadius="20dp"
+                app:cardElevation="3dp"
+                app:cardBackgroundColor="@color/md_theme_light_surface">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="💪 Podle intenzity"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/md_theme_light_onSurface"
+                        android:fontFamily="sans-serif-medium"
+                        android:layout_marginBottom="16dp" />
 
                     <TextView
                         android:id="@+id/tvIntensityStats"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Podle intenzity:"
-                        android:textSize="16sp" />
+                        android:text=""
+                        android:textSize="15sp"
+                        android:textColor="@color/md_theme_light_onSurface"
+                        android:lineSpacingExtra="4dp" />
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <!-- Statistiky podle typu aktivity -->
-            <androidx.cardview.widget.CardView
+            <!-- Activity Type Statistics Card -->
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:elevation="4dp">
+                app:cardCornerRadius="20dp"
+                app:cardElevation="3dp"
+                app:cardBackgroundColor="@color/md_theme_light_surface">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Statistiky podle typu"
-                        android:textSize="18sp"
+                        android:text="📋 Podle typu aktivity"
+                        android:textSize="20sp"
                         android:textStyle="bold"
-                        android:layout_marginBottom="8dp" />
+                        android:textColor="@color/md_theme_light_onSurface"
+                        android:fontFamily="sans-serif-medium"
+                        android:layout_marginBottom="16dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/md_theme_light_outlineVariant"
+                        android:layout_marginBottom="16dp" />
 
                     <TextView
                         android:id="@+id/tvStatisticsByType"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text=""
                         android:textSize="14sp"
-                        android:fontFamily="monospace" />
+                        android:textColor="@color/md_theme_light_onSurface"
+                        android:fontFamily="monospace"
+                        android:lineSpacingExtra="2dp" />
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
     </ScrollView>

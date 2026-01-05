@@ -2,21 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/navigation_workouts"
-        android:icon="@android:drawable/ic_menu_today"
-        android:title="Aktivity" />
+        android:icon="@drawable/ic_workouts"
+        android:title="Tréninky" />
 
     <item
         android:id="@+id/navigation_calendar"
-        android:icon="@android:drawable/ic_menu_month"
+        android:icon="@drawable/ic_calendar"
         android:title="Kalendář" />
 
     <item
         android:id="@+id/navigation_statistics"
-        android:icon="@android:drawable/ic_menu_info_details"
+        android:icon="@drawable/ic_statistics"
         android:title="Statistiky" />
 
     <item
         android:id="@+id/navigation_profile"
-        android:icon="@android:drawable/ic_menu_myplaces"
+        android:icon="@drawable/ic_profile"
         android:title="Profil" />
 </menu>

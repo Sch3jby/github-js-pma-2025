@@ -21,9 +21,10 @@ class MainActivity : AppCompatActivity() {
 
         setupBottomNavigation()
 
-        // Zobrazíme první fragment (Aktivity)
+        // Zobrazíme první fragment (Tréninky)
         if (savedInstanceState == null) {
             loadFragment(WorkoutsFragment())
+            binding.bottomNavigation.selectedItemId = R.id.navigation_workouts
         }
     }
 

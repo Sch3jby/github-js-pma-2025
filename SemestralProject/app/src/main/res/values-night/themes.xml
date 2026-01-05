@@ -1,7 +1,19 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.SemestralProject" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    <style name="Base.Theme.SemestralProject" parent="Theme.Material3.Dark.NoActionBar">
+        <!-- Dark theme colors -->
+        <item name="colorPrimary">#9ECAFF</item>
+        <item name="colorOnPrimary">#003258</item>
+        <item name="colorPrimaryContainer">#00497D</item>
+        <item name="colorOnPrimaryContainer">#D1E4FF</item>
+
+        <item name="colorSecondary">#FFB74D</item>
+        <item name="colorOnSecondary">#4E2700</item>
+        <item name="colorSecondaryContainer">#6F3800</item>
+        <item name="colorOnSecondaryContainer">#FFE0B2</item>
+
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
     </style>
+
+    <style name="Theme.SemestralProject" parent="Base.Theme.SemestralProject" />
 </resources>
